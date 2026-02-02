@@ -1,18 +1,8 @@
 # Quick Link Copy - Chrome Extension
 
-現在のページのリンクをショートカットキーで素早くクリップボードにコピーするChrome拡張機能。
+`Cmd+Shift+L` で現在のページのURLをクリップボードにコピーするChrome拡張機能。
 
-## Features
-
-| アクション | ショートカット | 出力例 |
-|---|---|---|
-| Markdown形式コピー | `Cmd+Shift+L` | `[Page Title](https://example.com)` |
-| URLのみコピー | `Cmd+Shift+U` | `https://example.com` |
-| タイトル+URL | ポップアップから | `Page Title\nhttps://example.com` |
-
-- コピー完了時に画面右下にトースト通知
-- ダークテーマのポップアップUI
-- Manifest V3 対応
+コピー完了時に「Link copied!」のトースト通知を表示します。
 
 ## Install (開発者モード)
 

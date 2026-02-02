@@ -1,34 +1,20 @@
 chrome.commands.onCommand.addListener(async (command) => {
+  if (command !== "copy-link") return;
+
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab) return;
-
-  const title = tab.title || "";
-  const url = tab.url || "";
-
-  let text;
-  if (command === "copy-link-markdown") {
-    text = `[${title}](${url})`;
-  } else if (command === "copy-link-plain") {
-    text = url;
-  } else {
-    return;
-  }
 
   try {
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: (textToCopy, format) => {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          showCopyNotification(format);
-        });
-
-        function showCopyNotification(fmt) {
+      func: (url) => {
+        navigator.clipboard.writeText(url).then(() => {
           const existing = document.getElementById("__qlc-toast");
           if (existing) existing.remove();
 
           const toast = document.createElement("div");
           toast.id = "__qlc-toast";
-          toast.textContent = fmt === "copy-link-markdown" ? "Markdown link copied!" : "URL copied!";
+          toast.textContent = "Link copied!";
           Object.assign(toast.style, {
             position: "fixed",
             bottom: "24px",
@@ -60,11 +46,11 @@ chrome.commands.onCommand.addListener(async (command) => {
             toast.style.transform = "translateY(12px)";
             setTimeout(() => toast.remove(), 200);
           }, 1500);
-        }
+        });
       },
-      args: [text, command],
+      args: [tab.url || ""],
     });
   } catch {
-    // chrome:// pages etc. — fall back to offscreen or ignore
+    // chrome:// pages etc.
   }
 });

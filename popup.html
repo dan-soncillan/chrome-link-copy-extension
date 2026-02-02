@@ -5,7 +5,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      width: 300px;
+      width: 260px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #1a1a2e;
       color: #e0e0e0;
@@ -20,10 +20,10 @@
     .btn {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
       width: 100%;
       padding: 10px 14px;
-      margin-bottom: 8px;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px;
       background: rgba(255,255,255,0.05);
@@ -31,55 +31,29 @@
       font-size: 13px;
       cursor: pointer;
       transition: background 0.15s;
-      text-align: left;
     }
     .btn:hover { background: rgba(255,255,255,0.12); }
     .btn:active { background: rgba(255,255,255,0.18); }
-    .btn .icon { font-size: 18px; flex-shrink: 0; }
-    .btn .label { flex: 1; }
     .btn .kbd {
       font-size: 11px;
       color: #888;
       background: rgba(255,255,255,0.08);
       padding: 2px 6px;
       border-radius: 4px;
-      white-space: nowrap;
-    }
-    .divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      margin: 10px 0;
-    }
-    .info {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.5;
     }
     .copied {
       background: rgba(72, 199, 142, 0.15) !important;
       border-color: rgba(72, 199, 142, 0.3) !important;
+      color: #48c78e !important;
     }
   </style>
 </head>
 <body>
   <h1>Quick Link Copy</h1>
-  <button class="btn" id="btn-md">
-    <span class="icon">&#128279;</span>
-    <span class="label">Markdown形式でコピー</span>
+  <button class="btn" id="btn-copy">
+    <span class="label">URLをコピー</span>
     <span class="kbd">&#8984;&#8679;L</span>
   </button>
-  <button class="btn" id="btn-url">
-    <span class="icon">&#127760;</span>
-    <span class="label">URLのみコピー</span>
-    <span class="kbd">&#8984;&#8679;U</span>
-  </button>
-  <button class="btn" id="btn-title-url">
-    <span class="icon">&#128196;</span>
-    <span class="label">タイトル + URLコピー</span>
-  </button>
-  <hr class="divider">
-  <div class="info">ショートカットキーはどのページでも使えます</div>
-
   <script src="popup.js"></script>
 </body>
 </html>
