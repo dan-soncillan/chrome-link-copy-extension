@@ -17,7 +17,7 @@
       margin-bottom: 12px;
       color: #fff;
     }
-    .btn {
+    #btn-copy {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,30 +30,43 @@
       color: #e0e0e0;
       font-size: 13px;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
-    .btn:hover { background: rgba(255,255,255,0.12); }
-    .btn:active { background: rgba(255,255,255,0.18); }
-    .btn .kbd {
+    #btn-copy:hover { background: rgba(255,255,255,0.12); }
+    #btn-copy:active { background: rgba(255,255,255,0.18); }
+    .kbd {
       font-size: 11px;
       color: #888;
       background: rgba(255,255,255,0.08);
       padding: 2px 6px;
       border-radius: 4px;
     }
-    .copied {
-      background: rgba(72, 199, 142, 0.15) !important;
-      border-color: rgba(72, 199, 142, 0.3) !important;
-      color: #48c78e !important;
-    }
   </style>
 </head>
 <body>
   <h1>Quick Link Copy</h1>
-  <button class="btn" id="btn-copy">
-    <span class="label">URLをコピー</span>
+  <button id="btn-copy">
+    <span id="btn-label">URLをコピー</span>
     <span class="kbd">&#8984;&#8679;L</span>
   </button>
-  <script src="popup.js"></script>
+  <script>
+    document.getElementById("btn-copy").addEventListener("click", function() {
+      var btn = this;
+      var label = document.getElementById("btn-label");
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        var tab = tabs && tabs[0];
+        if (!tab || !tab.url) return;
+        navigator.clipboard.writeText(tab.url).then(function() {
+          btn.style.background = "rgba(72,199,142,0.15)";
+          btn.style.borderColor = "rgba(72,199,142,0.3)";
+          btn.style.color = "#48c78e";
+          label.textContent = "Link copied!";
+          setTimeout(function() { window.close(); }, 600);
+        }).catch(function() {
+          label.textContent = "Copy failed";
+        });
+      });
+    });
+  </script>
 </body>
 </html>
